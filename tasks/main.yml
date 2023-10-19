@@ -1,0 +1,12 @@
+---
+# tasks file for roles/install_dependencies
+- name: Install dependencies
+  community.docker.docker_container_exec:
+    container: "{{ app_container_name }}"
+    command: /bin/bash -c "composer install --no-dev"
+    chdir: /var/www/html
+  register: result
+- name: Print stdout
+  ansible.builtin.debug:
+    var: result.stdout
+
